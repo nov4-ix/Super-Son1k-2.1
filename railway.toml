@@ -1,0 +1,46 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "cd packages/backend && npm run start"
+healthcheckPath = "/health"
+healthcheckTimeout = 300
+restartPolicyType = "on_failure"
+
+[env]
+NODE_ENV = "production"
+PORT = "3001"
+LOG_LEVEL = "info"
+
+# Database
+DATABASE_URL = { type = "postgresql", default = true }
+
+# Redis
+REDIS_URL = { type = "redis", default = true }
+
+# JWT
+JWT_SECRET = { generate = true }
+
+# Supabase
+SUPABASE_URL = { type = "string", required = true }
+SUPABASE_SERVICE_ROLE_KEY = { type = "string", required = true }
+
+# Suno API
+SUNO_API_URL = "https://api.suno.ai/v1"
+SUNO_API_KEY = { type = "string", required = true }
+
+# Stripe
+STRIPE_SECRET_KEY = { type = "string", required = true }
+STRIPE_WEBHOOK_SECRET = { type = "string", required = true }
+STRIPE_PRO_PRICE_ID = { type = "string", required = true }
+STRIPE_PREMIUM_PRICE_ID = { type = "string", required = true }
+STRIPE_ENTERPRISE_PRICE_ID = { type = "string", required = true }
+
+# Frontend URL
+FRONTEND_URL = { type = "string", required = true }
+
+# Token Pool Configuration
+MIN_TOKENS = "20"
+MAX_TOKENS = "500"
+ROTATION_INTERVAL = "180000"
+HEALTH_CHECK_INTERVAL = "30000"
