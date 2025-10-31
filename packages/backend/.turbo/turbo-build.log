@@ -1,0 +1,223 @@
+
+> @super-son1k/backend@1.0.0 build /Users/nov4-ix/Desktop/Super-Son1k-2.0/packages/backend
+> tsc
+
+[96msrc/middleware/supabaseAuth.ts[0m:[93m80[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType '{ id: string; email: string; username: string; tier: string; isAdmin: boolean; alvaeEnabled: boolean; createdAt: Date; updatedAt: Date; lastLoginAt: Date; } | { id: any; email: any; username: any; tier: string; isAdmin: boolean; alvaeEnabled: boolean; }' is not assignable to type '{ userTier: { id: string; tier: string; createdAt: Date; updatedAt: Date; monthlyGenerations: number; dailyGenerations: number; usedThisMonth: number; usedToday: number; maxDuration: number; ... 8 more ...; userId: string; }; } & { ...; }'.
+  Type '{ id: string; email: string; username: string; tier: string; isAdmin: boolean; alvaeEnabled: boolean; createdAt: Date; updatedAt: Date; lastLoginAt: Date; }' is not assignable to type '{ userTier: { id: string; tier: string; createdAt: Date; updatedAt: Date; monthlyGenerations: number; dailyGenerations: number; usedThisMonth: number; usedToday: number; maxDuration: number; ... 8 more ...; userId: string; }; } & { ...; }'.
+    Property 'userTier' is missing in type '{ id: string; email: string; username: string; tier: string; isAdmin: boolean; alvaeEnabled: boolean; createdAt: Date; updatedAt: Date; lastLoginAt: Date; }' but required in type '{ userTier: { id: string; tier: string; createdAt: Date; updatedAt: Date; monthlyGenerations: number; dailyGenerations: number; usedThisMonth: number; usedToday: number; maxDuration: number; ... 8 more ...; userId: string; }; }'.
+
+[7m80[0m       user = await supabaseAuth.createUserFromSupabase(supabaseUser)
+[7m  [0m [91m      ~~~~[0m
+
+[96msrc/middleware/supabaseAuth.ts[0m:[93m155[0m:[93m13[0m - [91merror[0m[90m TS2322: [0mType '{ id: string; email: string; username: string; tier: string; isAdmin: boolean; alvaeEnabled: boolean; createdAt: Date; updatedAt: Date; lastLoginAt: Date; } | { id: any; email: any; username: any; tier: string; isAdmin: boolean; alvaeEnabled: boolean; }' is not assignable to type '{ userTier: { id: string; tier: string; createdAt: Date; updatedAt: Date; monthlyGenerations: number; dailyGenerations: number; usedThisMonth: number; usedToday: number; maxDuration: number; ... 8 more ...; userId: string; }; } & { ...; }'.
+  Type '{ id: string; email: string; username: string; tier: string; isAdmin: boolean; alvaeEnabled: boolean; createdAt: Date; updatedAt: Date; lastLoginAt: Date; }' is not assignable to type '{ userTier: { id: string; tier: string; createdAt: Date; updatedAt: Date; monthlyGenerations: number; dailyGenerations: number; usedThisMonth: number; usedToday: number; maxDuration: number; ... 8 more ...; userId: string; }; } & { ...; }'.
+    Property 'userTier' is missing in type '{ id: string; email: string; username: string; tier: string; isAdmin: boolean; alvaeEnabled: boolean; createdAt: Date; updatedAt: Date; lastLoginAt: Date; }' but required in type '{ userTier: { id: string; tier: string; createdAt: Date; updatedAt: Date; monthlyGenerations: number; dailyGenerations: number; usedThisMonth: number; usedToday: number; maxDuration: number; ... 8 more ...; userId: string; }; }'.
+
+[7m155[0m             user = await supabaseAuth.createUserFromSupabase(supabaseUser)
+[7m   [0m [91m            ~~~~[0m
+
+[96msrc/routes/stripe.ts[0m:[93m284[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType '{ stripeCustomerId: string; }' is not assignable to type 'UserTierWhereUniqueInput'.
+  Type '{ stripeCustomerId: string; }' is not assignable to type '{ id: string; userId: string; } & { id?: string; userId?: string; AND?: UserTierWhereInput | UserTierWhereInput[]; OR?: UserTierWhereInput[]; ... 17 more ...; user?: (Without<...> & UserWhereInput) | (Without<...> & UserRelationFilter); }'.
+    Type '{ stripeCustomerId: string; }' is missing the following properties from type '{ id: string; userId: string; }': id, userId
+
+[7m284[0m       where: { stripeCustomerId: customerId }
+[7m   [0m [91m      ~~~~~[0m
+
+  [96m../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma/client/index.d.ts[0m:[93m4123[0m:[93m5[0m
+    [7m4123[0m     where: UserTierWhereUniqueInput
+    [7m    [0m [96m    ~~~~~[0m
+    The expected type comes from property 'where' which is declared here on type '{ select?: UserTierSelect<DefaultArgs>; include?: UserTierInclude<DefaultArgs>; where: UserTierWhereUniqueInput; }'
+
+[96msrc/routes/stripe.ts[0m:[93m308[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType '{ stripeCustomerId: string; }' is not assignable to type 'UserTierWhereUniqueInput'.
+  Type '{ stripeCustomerId: string; }' is not assignable to type '{ id: string; userId: string; } & { id?: string; userId?: string; AND?: UserTierWhereInput | UserTierWhereInput[]; OR?: UserTierWhereInput[]; ... 17 more ...; user?: (Without<...> & UserWhereInput) | (Without<...> & UserRelationFilter); }'.
+    Type '{ stripeCustomerId: string; }' is missing the following properties from type '{ id: string; userId: string; }': id, userId
+
+[7m308[0m       where: { stripeCustomerId: customerId }
+[7m   [0m [91m      ~~~~~[0m
+
+  [96m../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma/client/index.d.ts[0m:[93m4123[0m:[93m5[0m
+    [7m4123[0m     where: UserTierWhereUniqueInput
+    [7m    [0m [96m    ~~~~~[0m
+    The expected type comes from property 'where' which is declared here on type '{ select?: UserTierSelect<DefaultArgs>; include?: UserTierInclude<DefaultArgs>; where: UserTierWhereUniqueInput; }'
+
+[96msrc/routes/stripe.ts[0m:[93m326[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType '{ stripeCustomerId: string; }' is not assignable to type 'UserTierWhereUniqueInput'.
+  Type '{ stripeCustomerId: string; }' is not assignable to type '{ id: string; userId: string; } & { id?: string; userId?: string; AND?: UserTierWhereInput | UserTierWhereInput[]; OR?: UserTierWhereInput[]; ... 17 more ...; user?: (Without<...> & UserWhereInput) | (Without<...> & UserRelationFilter); }'.
+    Type '{ stripeCustomerId: string; }' is missing the following properties from type '{ id: string; userId: string; }': id, userId
+
+[7m326[0m       where: { stripeCustomerId: customerId }
+[7m   [0m [91m      ~~~~~[0m
+
+  [96m../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma/client/index.d.ts[0m:[93m4123[0m:[93m5[0m
+    [7m4123[0m     where: UserTierWhereUniqueInput
+    [7m    [0m [96m    ~~~~~[0m
+    The expected type comes from property 'where' which is declared here on type '{ select?: UserTierSelect<DefaultArgs>; include?: UserTierInclude<DefaultArgs>; where: UserTierWhereUniqueInput; }'
+
+[96msrc/routes/stripe.ts[0m:[93m350[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType '{ stripeCustomerId: string; }' is not assignable to type 'UserTierWhereUniqueInput'.
+  Type '{ stripeCustomerId: string; }' is not assignable to type '{ id: string; userId: string; } & { id?: string; userId?: string; AND?: UserTierWhereInput | UserTierWhereInput[]; OR?: UserTierWhereInput[]; ... 17 more ...; user?: (Without<...> & UserWhereInput) | (Without<...> & UserRelationFilter); }'.
+    Type '{ stripeCustomerId: string; }' is missing the following properties from type '{ id: string; userId: string; }': id, userId
+
+[7m350[0m       where: { stripeCustomerId: customerId }
+[7m   [0m [91m      ~~~~~[0m
+
+  [96m../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma/client/index.d.ts[0m:[93m4123[0m:[93m5[0m
+    [7m4123[0m     where: UserTierWhereUniqueInput
+    [7m    [0m [96m    ~~~~~[0m
+    The expected type comes from property 'where' which is declared here on type '{ select?: UserTierSelect<DefaultArgs>; include?: UserTierInclude<DefaultArgs>; where: UserTierWhereUniqueInput; }'
+
+[96msrc/services/analyticsService.ts[0m:[93m46[0m:[93m11[0m - [91merror[0m[90m TS2322: [0mType 'Record<string, any>' is not assignable to type 'string'.
+
+[7m46[0m           properties: event.properties,
+[7m  [0m [91m          ~~~~~~~~~~[0m
+
+  [96m../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma/client/index.d.ts[0m:[93m17832[0m:[93m5[0m
+    [7m17832[0m     properties?: string
+    [7m     [0m [96m    ~~~~~~~~~~[0m
+    The expected type comes from property 'properties' which is declared here on type '(Without<AnalyticsEventCreateInput, AnalyticsEventUncheckedCreateInput> & AnalyticsEventUncheckedCreateInput) | (Without<...> & AnalyticsEventCreateInput)'
+
+[96msrc/services/collaborationService.ts[0m:[93m47[0m:[93m9[0m - [91merror[0m[90m TS2322: [0mType 'string[]' is not assignable to type 'string'.
+
+[7m47[0m         members: [data.ownerId]
+[7m  [0m [91m        ~~~~~~~[0m
+
+  [96m../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma/client/index.d.ts[0m:[93m17761[0m:[93m5[0m
+    [7m17761[0m     members?: string
+    [7m     [0m [96m    ~~~~~~~[0m
+    The expected type comes from property 'members' which is declared here on type '(Without<CollaborationRoomCreateInput, CollaborationRoomUncheckedCreateInput> & CollaborationRoomUncheckedCreateInput) | (Without<...> & CollaborationRoomCreateInput)'
+
+[96msrc/services/collaborationService.ts[0m:[93m57[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType 'string' is not assignable to type 'string[]'.
+
+[7m57[0m       members: room.members,
+[7m  [0m [91m      ~~~~~~~[0m
+
+  [96msrc/services/collaborationService.ts[0m:[93m15[0m:[93m3[0m
+    [7m15[0m   members: string[];
+    [7m  [0m [96m  ~~~~~~~[0m
+    The expected type comes from property 'members' which is declared here on type 'CollaborationRoom'
+
+[96msrc/services/collaborationService.ts[0m:[93m91[0m:[93m13[0m - [91merror[0m[90m TS2322: [0mType 'string[]' is not assignable to type 'string | StringFieldUpdateOperationsInput'.
+
+[7m91[0m             members: [...room.members, userId]
+[7m  [0m [91m            ~~~~~~~[0m
+
+  [96m../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma/client/index.d.ts[0m:[93m17783[0m:[93m5[0m
+    [7m17783[0m     members?: StringFieldUpdateOperationsInput | string
+    [7m     [0m [96m    ~~~~~~~[0m
+    The expected type comes from property 'members' which is declared here on type '(Without<CollaborationRoomUpdateInput, CollaborationRoomUncheckedUpdateInput> & CollaborationRoomUncheckedUpdateInput) | (Without<...> & CollaborationRoomUpdateInput)'
+
+[96msrc/services/collaborationService.ts[0m:[93m133[0m:[93m43[0m - [91merror[0m[90m TS2339: [0mProperty 'filter' does not exist on type 'string'.
+
+[7m133[0m       const updatedMembers = room.members.filter(memberId => memberId !== userId);
+[7m   [0m [91m                                          ~~~~~~[0m
+
+[96msrc/services/collaborationService.ts[0m:[93m174[0m:[93m9[0m - [91merror[0m[90m TS2322: [0mType 'string' is not assignable to type 'string[]'.
+
+[7m174[0m         members: room.members,
+[7m   [0m [91m        ~~~~~~~[0m
+
+  [96msrc/services/collaborationService.ts[0m:[93m15[0m:[93m3[0m
+    [7m15[0m   members: string[];
+    [7m  [0m [96m  ~~~~~~~[0m
+    The expected type comes from property 'members' which is declared here on type 'CollaborationRoom'
+
+[96msrc/services/collaborationService.ts[0m:[93m197[0m:[93m28[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'has' does not exist in type 'StringFilter<"CollaborationRoom">'.
+
+[7m197[0m               { members: { has: userId } }
+[7m   [0m [91m                           ~~~[0m
+
+  [96m../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma/client/index.d.ts[0m:[93m16582[0m:[93m5[0m
+    [7m16582[0m     members?: StringFilter<"CollaborationRoom"> | string
+    [7m     [0m [96m    ~~~~~~~[0m
+    The expected type comes from property 'members' which is declared here on type 'CollaborationRoomWhereInput'
+
+[96msrc/services/collaborationService.ts[0m:[93m208[0m:[93m28[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'has' does not exist in type 'StringFilter<"CollaborationRoom">'.
+
+[7m208[0m               { members: { has: userId } }
+[7m   [0m [91m                           ~~~[0m
+
+  [96m../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma/client/index.d.ts[0m:[93m16582[0m:[93m5[0m
+    [7m16582[0m     members?: StringFilter<"CollaborationRoom"> | string
+    [7m     [0m [96m    ~~~~~~~[0m
+    The expected type comes from property 'members' which is declared here on type 'CollaborationRoomWhereInput'
+
+[96msrc/services/collaborationService.ts[0m:[93m276[0m:[93m9[0m - [91merror[0m[90m TS2322: [0mType 'string' is not assignable to type 'string[]'.
+
+[7m276[0m         members: updatedRoom.members,
+[7m   [0m [91m        ~~~~~~~[0m
+
+  [96msrc/services/collaborationService.ts[0m:[93m15[0m:[93m3[0m
+    [7m15[0m   members: string[];
+    [7m  [0m [96m  ~~~~~~~[0m
+    The expected type comes from property 'members' which is declared here on type 'CollaborationRoom'
+
+[96msrc/services/supabaseAuth.ts[0m:[93m52[0m:[93m11[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'password' does not exist in type '(Without<UserCreateInput, UserUncheckedCreateInput> & UserUncheckedCreateInput) | (Without<...> & UserCreateInput)'.
+
+[7m52[0m           password: '', // Supabase handles password
+[7m  [0m [91m          ~~~~~~~~[0m
+
+  [96m../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma/client/index.d.ts[0m:[93m2955[0m:[93m5[0m
+    [7m2955[0m     data: XOR<UserCreateInput, UserUncheckedCreateInput>
+    [7m    [0m [96m    ~~~~[0m
+    The expected type comes from property 'data' which is declared here on type '{ select?: UserSelect<DefaultArgs>; include?: UserInclude<DefaultArgs>; data: (Without<UserCreateInput, UserUncheckedCreateInput> & UserUncheckedCreateInput) | (Without<...> & UserCreateInput); }'
+
+[96msrc/services/supabaseAuth.ts[0m:[93m111[0m:[93m9[0m - [91merror[0m[90m TS2322: [0mType 'string[]' is not assignable to type 'string'.
+
+[7m111[0m         features: config.features,
+[7m   [0m [91m        ~~~~~~~~[0m
+
+  [96m../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma/client/index.d.ts[0m:[93m17051[0m:[93m5[0m
+    [7m17051[0m     features?: string
+    [7m     [0m [96m    ~~~~~~~~[0m
+    The expected type comes from property 'features' which is declared here on type '(Without<UserTierCreateInput, UserTierUncheckedCreateInput> & UserTierUncheckedCreateInput) | (Without<...> & UserTierCreateInput)'
+
+[96msrc/services/supabaseAuth.ts[0m:[93m140[0m:[93m11[0m - [91merror[0m[90m TS2561: [0mObject literal may only specify known properties, but 'subscriptionStartDate' does not exist in type '(Without<UserTierUpdateInput, UserTierUncheckedUpdateInput> & UserTierUncheckedUpdateInput) | (Without<...> & UserTierUpdateInput)'. Did you mean to write 'subscriptionStatus'?
+
+[7m140[0m           subscriptionStartDate: new Date(),
+[7m   [0m [91m          ~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96m../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma/client/index.d.ts[0m:[93m4344[0m:[93m5[0m
+    [7m4344[0m     data: XOR<UserTierUpdateInput, UserTierUncheckedUpdateInput>
+    [7m    [0m [96m    ~~~~[0m
+    The expected type comes from property 'data' which is declared here on type '{ select?: UserTierSelect<DefaultArgs>; include?: UserTierInclude<DefaultArgs>; data: (Without<UserTierUpdateInput, UserTierUncheckedUpdateInput> & UserTierUncheckedUpdateInput) | (Without<...> & UserTierUpdateInput); where: UserTierWhereUniqueInput; }'
+
+[96msrc/services/supabaseAuth.ts[0m:[93m215[0m:[93m9[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'lastGenerationAt' does not exist in type '(Without<UserTierUpdateInput, UserTierUncheckedUpdateInput> & UserTierUncheckedUpdateInput) | (Without<...> & UserTierUpdateInput)'.
+
+[7m215[0m         lastGenerationAt: new Date()
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+  [96m../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma/client/index.d.ts[0m:[93m4344[0m:[93m5[0m
+    [7m4344[0m     data: XOR<UserTierUpdateInput, UserTierUncheckedUpdateInput>
+    [7m    [0m [96m    ~~~~[0m
+    The expected type comes from property 'data' which is declared here on type '{ select?: UserTierSelect<DefaultArgs>; include?: UserTierInclude<DefaultArgs>; data: (Without<UserTierUpdateInput, UserTierUncheckedUpdateInput> & UserTierUncheckedUpdateInput) | (Without<...> & UserTierUpdateInput); where: UserTierWhereUniqueInput; }'
+
+[96msrc/services/tokenManager.ts[0m:[93m150[0m:[93m11[0m - [91merror[0m[90m TS2322: [0mType 'Record<string, any>' is not assignable to type 'string'.
+
+[7m150[0m           metadata,
+[7m   [0m [91m          ~~~~~~~~[0m
+
+  [96m../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma/client/index.d.ts[0m:[93m17280[0m:[93m5[0m
+    [7m17280[0m     metadata?: string
+    [7m     [0m [96m    ~~~~~~~~[0m
+    The expected type comes from property 'metadata' which is declared here on type '(Without<TokenCreateInput, TokenUncheckedCreateInput> & TokenUncheckedCreateInput) | (Without<...> & TokenCreateInput)'
+
+[96msrc/services/userExtensionService.ts[0m:[93m31[0m:[93m11[0m - [91merror[0m[90m TS2322: [0mType 'Record<string, any>' is not assignable to type 'string'.
+
+[7m31[0m           metadata: usage.metadata,
+[7m  [0m [91m          ~~~~~~~~[0m
+
+  [96m../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma/client/index.d.ts[0m:[93m18032[0m:[93m5[0m
+    [7m18032[0m     metadata?: string
+    [7m     [0m [96m    ~~~~~~~~[0m
+    The expected type comes from property 'metadata' which is declared here on type '(Without<ExtensionUsageCreateInput, ExtensionUsageUncheckedCreateInput> & ExtensionUsageUncheckedCreateInput) | (Without<...> & ExtensionUsageCreateInput)'
+
+
+Found 21 errors in 7 files.
+
+Errors  Files
+     2  src/middleware/supabaseAuth.ts[90m:80[0m
+     4  src/routes/stripe.ts[90m:284[0m
+     1  src/services/analyticsService.ts[90m:46[0m
+     8  src/services/collaborationService.ts[90m:47[0m
+     4  src/services/supabaseAuth.ts[90m:52[0m
+     1  src/services/tokenManager.ts[90m:150[0m
+     1  src/services/userExtensionService.ts[90m:31[0m
+[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 2.[39m

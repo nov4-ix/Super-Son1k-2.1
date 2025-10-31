@@ -1,0 +1,5 @@
+
+> @super-son1k/web-classic@1.0.0 build /Users/nov4-ix/Desktop/Super-Son1k-2.0/apps/web-classic
+> tsc && vite build
+
+[36mvite v7.1.12 [32mbuilding for production...[36m[39m
