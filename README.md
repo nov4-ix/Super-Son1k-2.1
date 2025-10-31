@@ -1,370 +1,301 @@
-# 🎵 Super-Son1k-2.0
+# Nexus Visual - Adaptive Pixels
 
-**AI Music Creation Platform - Hybrid Architecture**
+> **Behavior-driven adaptive visual system with machine learning**
 
-[![Status](https://img.shields.io/badge/status-ready-brightgreen)]()
-[![Version](https://img.shields.io/badge/version-2.0.0-blue)]()
-[![License](https://img.shields.io/badge/license-MIT-orange)]()
+Nexus Visual implements an advanced adaptive pixel system that learns from user interactions and reflects them in real-time visuals. The system combines realistic behavior tracking, simple heuristic adaptation, and optional machine learning to create personalized visual experiences.
 
----
+## ✨ Features
 
-## 🚀 Overview
+### 🧠 **Adaptive Learning System**
+- **Real-time Behavior Tracking**: Click, hover, scroll, and keyboard interaction monitoring
+- **Grid-based Heatmap**: Spatial analysis of user interaction patterns
+- **Pixel Adaptation**: 10,000 pixels that adapt based on user behavior
+- **Confidence Scoring**: Machine learning confidence metrics
 
-**Super-Son1k-2.0** is a revolutionary AI music creation platform that combines the best features from multiple projects into a single, powerful ecosystem. Built with a hybrid architecture that maximizes performance, security, and scalability.
+### 🎨 **Visual Adaptation**
+- **Color Shifting**: Dynamic color adaptation based on context and preferences
+- **Speed Modulation**: Movement speed adaptation based on interaction patterns
+- **Glow Intensity**: Visual feedback intensity based on user engagement
+- **Size Scaling**: Pixel size adaptation for different interaction styles
 
-### ✨ Key Features
+### 🤖 **Machine Learning Integration**
+- **TensorFlow.js**: Optional ML model training and prediction
+- **Behavior Prediction**: Predicts user preferences from interaction patterns
+- **Model Persistence**: Saves trained models to localStorage
+- **Feature Flag Control**: ML features only load when enabled
 
-- 🎵 **Complete Music Suite** - 7 specialized applications for music creation
-- 🔐 **Advanced Authentication** - Supabase Auth with OAuth integration
-- 🎯 **Smart Token Management** - Automatic rotation, health checks, and optimization
-- 📊 **Real-time Analytics** - Comprehensive monitoring and insights
-- 🤝 **Collaboration Tools** - Team-based music creation with WebSocket
-- 🛒 **NFT Marketplace** - Monetize your creations
-- 🔌 **Chrome Extension** - Seamless token capture and management
-- 📱 **Mobile Optimized** - Responsive design for all devices
+### 📊 **Analytics Dashboard**
+- **Real-time Stats**: Live adaptation metrics and confidence scores
+- **Heatmap Visualization**: Interactive heatmap of user activity
+- **Preference Controls**: Manual adaptation controls and theme switching
+- **ML Model Management**: Train, predict, and manage ML models
 
----
+## 🛠️ Technical Stack
 
-## 🏗️ Architecture
-
-### Backend (Advanced)
-- **Framework**: Fastify (high-performance)
-- **Database**: PostgreSQL + Prisma ORM
-- **Cache**: Redis for performance optimization
-- **Auth**: JWT + Supabase Auth + OAuth
-- **Monitoring**: Health checks + Analytics
-- **Security**: Helmet + Rate limiting + Token encryption
-
-### Frontend (Complete)
-- **Framework**: Next.js 14 + React 18
-- **Styling**: Tailwind CSS + Framer Motion
-- **State**: Zustand + React Query
-- **Auth**: Supabase Auth + OAuth providers
-- **Deployment**: Vercel + Netlify
-
-### DevOps
-- **Monorepo**: Turborepo for efficient builds
-- **CI/CD**: GitHub Actions
-- **Monitoring**: Sentry + PostHog
-- **Analytics**: Vercel Analytics
-
----
-
-## 📂 Project Structure
-
-```
-Super-Son1k-2.0/
-├── apps/                          # Frontend applications
-│   ├── the-generator/             # Music generation with AI
-│   ├── ghost-studio/             # Simplified DAW
-│   ├── nova-post-pilot/          # Marketing intelligence
-│   ├── nexus-visual/             # Immersive experience
-│   ├── sanctuary-social/          # Creator social network
-│   ├── admin-panel/              # Administration dashboard
-│   └── web-classic/              # Main dashboard
-├── packages/                     # Shared packages
-│   ├── backend/                  # Advanced backend API
-│   │   ├── src/
-│   │   │   ├── services/         # Core services
-│   │   │   ├── middleware/       # Security middleware
-│   │   │   ├── routes/           # API routes
-│   │   │   └── types/            # TypeScript types
-│   │   └── prisma/               # Database schema
-│   ├── shared-ui/                # Shared UI components
-│   ├── shared-utils/             # Shared utilities
-│   └── shared-types/             # Shared TypeScript types
-├── extensions/                   # Browser extensions
-│   └── suno-extension/           # Chrome extension
-├── docs/                         # Documentation
-├── scripts/                      # Development scripts
-└── config/                       # Configuration files
-```
-
----
+- **React 18** - Component framework
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **Tailwind CSS** - Styling framework
+- **Framer Motion** - Animations
+- **Zustand** - State management
+- **Canvas API** - High-performance rendering
+- **TensorFlow.js** - Machine learning (optional)
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
-- PostgreSQL 14+
-- Redis 6+
-- npm 9+
+- Node.js 18+
+- npm or yarn
 
 ### Installation
-
 ```bash
-# Clone the repository
-git clone https://github.com/super-son1k/super-son1k-2.0.git
-cd super-son1k-2.0
-
-# Install dependencies
+cd apps/nexus-visual
 npm install
+```
 
-# Setup environment variables
-cp .env.example .env.local
-# Edit .env.local with your configuration
+### Environment Setup
+```bash
+cp .env.local.example .env.local
+```
 
-# Setup database
-npm run db:push
+Configure environment variables:
+```env
+# Feature Flags
+VITE_ENABLE_PIXEL_LEARNING=true
+VITE_ENABLE_PIXEL_ML=false
 
-# Start development servers
+# Optional Supabase Integration
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
+```
+
+### Development
+```bash
 npm run dev
 ```
 
-### Environment Variables
+Visit `http://localhost:3004` to see the adaptive pixels in action.
 
-```bash
-# Database
-DATABASE_URL="postgresql://username:password@localhost:5432/super_son1k"
+## 🎮 Usage
 
-# Redis
-REDIS_URL="redis://localhost:6379"
+### Basic Interaction
+- **Click**: Interact with pixels to trigger adaptation
+- **Hover**: Influence nearby pixels with mouse movement
+- **Scroll**: Affect global pixel behavior patterns
+- **Keyboard**: Track keyboard interaction patterns
 
-# JWT
-JWT_SECRET="your-super-secret-jwt-key"
+### Keyboard Shortcuts
+- **P**: Toggle pause/play animation
+- **R**: Reset pixel learning
+- **D**: Toggle dashboard visibility
 
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL="your-supabase-url"
-NEXT_PUBLIC_SUPABASE_ANON_KEY="your-supabase-anon-key"
-SUPABASE_SERVICE_ROLE_KEY="your-supabase-service-role-key"
+### Dashboard Controls
+- **Stats Tab**: View adaptation metrics and confidence scores
+- **Heatmap Tab**: See interaction patterns and activity zones
+- **Preferences Tab**: Apply manual adaptations and themes
+- **ML Tab**: Train and manage machine learning models
 
-# Suno API
-SUNO_API_URL="https://api.suno.ai/v1"
-SUNO_API_KEY="your-suno-api-key"
+## 🔧 Configuration
 
-# Stripe
-STRIPE_PUBLISHABLE_KEY="your-stripe-publishable-key"
-STRIPE_SECRET_KEY="your-stripe-secret-key"
-STRIPE_WEBHOOK_SECRET="your-stripe-webhook-secret"
+### Feature Flags
+```env
+# Enable behavior learning system
+VITE_ENABLE_PIXEL_LEARNING=true
 
-# OAuth
-GOOGLE_CLIENT_ID="your-google-client-id"
-GOOGLE_CLIENT_SECRET="your-google-client-secret"
-FACEBOOK_APP_ID="your-facebook-app-id"
-FACEBOOK_APP_SECRET="your-facebook-app-secret"
+# Enable machine learning features (requires TensorFlow.js)
+VITE_ENABLE_PIXEL_ML=false
 ```
 
----
-
-## 🎯 Applications
-
-### 1. The Generator
-**AI-powered music generation with advanced controls**
-- Lyric generation with literary knobs
-- Musical style customization
-- Real-time preview
-- Export options
-
-### 2. Ghost Studio
-**Simplified DAW for music production**
-- Audio upload and analysis
-- Cover generation
-- MIDI controller support
-- Plugin system
-
-### 3. Nova Post Pilot
-**Marketing intelligence platform**
-- AI hook generation
-- Post scheduling
-- Analytics dashboard
-- Social media integration
-
-### 4. Nexus Visual
-**Immersive visual experience**
-- Matrix-style visualizations
-- Adaptive pixel system
-- Real-time effects
-- Interactive controls
-
-### 5. Sanctuary Social
-**Creator social network**
-- Profile management
-- Collaboration tools
-- Community features
-- Content sharing
-
-### 6. Admin Panel
-**Administration dashboard**
-- User management
-- System monitoring
-- Analytics overview
-- Configuration
-
-### 7. Web Classic
-**Main dashboard**
-- Application launcher
-- User statistics
-- Quick access
-- System status
-
----
-
-## 🔧 Development
-
-### Available Scripts
-
-```bash
-# Development
-npm run dev                 # Start all services
-npm run dev:backend         # Start backend only
-npm run dev:frontend        # Start frontend only
-
-# Building
-npm run build              # Build all packages
-npm run build:backend      # Build backend only
-npm run build:frontend     # Build frontend only
-
-# Database
-npm run db:generate        # Generate Prisma client
-npm run db:migrate         # Run database migrations
-npm run db:push            # Push schema changes
-npm run db:studio          # Open Prisma Studio
-
-# Testing
-npm run test              # Run all tests
-npm run test:ui            # Run tests with UI
-
-# Utilities
-npm run lint              # Lint all packages
-npm run type-check        # Type check all packages
-npm run clean             # Clean all build artifacts
+### Pixel Configuration
+```typescript
+// Adjust pixel count and density
+const PIXEL_COUNT = 10000
+const ADAPTATION_RADIUS = 100
+const GRID_SIZE = 50
 ```
 
-### Adding New Features
+### Context Modes
+- **ghost-studio**: Purple theme (#B84DFF)
+- **nova-pilot**: Cyan theme (#00FFE7)
+- **nexus**: Accent theme (#9AF7EE)
 
-1. **Backend Services**: Add to `packages/backend/src/services/`
-2. **API Routes**: Add to `packages/backend/src/routes/`
-3. **Frontend Apps**: Add to `apps/`
-4. **Shared Components**: Add to `packages/shared-ui/`
-5. **Utilities**: Add to `packages/shared-utils/`
+## 📊 Data Model
 
----
+### User Behavior
+```typescript
+interface UserBehavior {
+  clickHeatmap: Map<string, number>
+  hoverAreas: Map<string, number>
+  scrollSpeed: number
+  timeOnPage: Record<string, number>
+  interactions: {
+    buttons: string[]
+    features: string[]
+    timeOfDay: string
+  }
+}
+```
 
-## 🔐 Security Features
+### Pixel Preferences
+```typescript
+interface PixelPreferences {
+  colorShift: number        // -1..1
+  speedMultiplier: number   // 0.5..2
+  size: number              // 0.5..1.5
+  opacity: number           // 0.3..1
+  glowIntensity: number     // 0.5..2
+}
+```
 
-### Authentication
-- JWT tokens with secure algorithms
-- OAuth integration (Google, Facebook)
-- Multi-factor authentication support
-- Session management
+## 🧪 Testing
 
-### Authorization
-- Tier-based access control
-- Role-based permissions
-- Resource-level security
-- API rate limiting
+```bash
+# Run tests
+npm run test
 
-### Data Protection
-- Token encryption
-- Secure password hashing
-- Input validation
-- SQL injection prevention
+# Run tests with UI
+npm run test:ui
 
-### Monitoring
-- Real-time security monitoring
-- Anomaly detection
-- Audit logging
-- Incident response
+# Test specific modules
+npm run test behaviorTracker
+npm run test adaptivePixels
+npm run test storage
+```
 
----
+### Test Coverage
+- **Behavior Tracker**: Heatmap bucketing, notification radius
+- **Adaptive Pixels**: Preference changes on interactions
+- **Storage**: Persistence get/set roundtrip
+- **ML Integration**: Model training and prediction
 
-## 📊 Monitoring & Analytics
+## 🔌 Integration
 
-### Health Checks
-- Database connectivity
-- Service availability
-- Token pool status
-- Performance metrics
+### Embedding in Other Apps
+```tsx
+import { AdaptivePixels } from '@/components/AdaptivePixels'
 
-### Analytics
-- User behavior tracking
-- Generation statistics
-- Performance monitoring
-- Error tracking
+function MyApp() {
+  return (
+    <div>
+      <MyAppContent />
+      <AdaptivePixels 
+        mode="real"
+        context="nova-pilot"
+        density={0.5}
+      />
+    </div>
+  )
+}
+```
 
-### Logging
-- Structured logging
-- Request tracing
-- Error reporting
-- Performance profiling
+### Initialization Helper
+```typescript
+import { initAdaptivePixels } from '@/lib/adaptivePixels'
 
----
+// Initialize with specific configuration
+initAdaptivePixels({
+  mode: 'real',
+  context: 'ghost-studio',
+  enableLearning: true,
+  enableML: false
+})
+```
+
+## 📈 Performance
+
+### Optimization Features
+- **RequestAnimationFrame**: Smooth 60fps animation
+- **Canvas Rendering**: Hardware-accelerated graphics
+- **Throttled Events**: Optimized interaction tracking
+- **Lazy Loading**: ML features load only when needed
+- **Memory Management**: Efficient pixel data structures
+
+### Performance Metrics
+- **Target**: 60fps with 10,000 pixels
+- **Memory**: < 50MB for full system
+- **Bundle Size**: < 2MB (without ML features)
+- **ML Bundle**: +3MB when enabled
+
+## 🔒 Privacy & Security
+
+### Data Handling
+- **Local Storage**: Primary data persistence
+- **Optional Supabase**: Cloud backup for pro users
+- **No Tracking**: No external analytics or tracking
+- **User Control**: Full data export and deletion
+
+### Security Features
+- **Input Validation**: All user inputs validated
+- **XSS Protection**: Content sanitization
+- **CSRF Protection**: Request token validation
+- **Environment Variables**: Secure configuration
 
 ## 🚀 Deployment
 
-### Production Setup
-
+### Build
 ```bash
-# Build for production
 npm run build
-
-# Start production server
-npm run start
-
-# Or use PM2 for process management
-pm2 start ecosystem.config.js
 ```
 
-### Docker Deployment
-
-```bash
-# Build Docker image
-docker build -t super-son1k-2.0 .
-
-# Run with Docker Compose
-docker-compose up -d
+### Environment Variables
+```env
+# Production
+VITE_ENABLE_PIXEL_LEARNING=true
+VITE_ENABLE_PIXEL_ML=false
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
 ```
 
-### Environment-Specific Configs
+### Deployment Platforms
+- **Vercel**: Automatic deployment with environment variables
+- **Netlify**: Static site deployment
+- **Docker**: Containerized deployment
+- **CDN**: Static asset optimization
 
-- **Development**: Local development with hot reload
-- **Staging**: Pre-production testing
-- **Production**: Live environment with monitoring
+## 📚 API Reference
 
----
+### Hooks
+- `useBehaviorTracker()`: Track user interactions
+- `useAdaptivePixels()`: Manage pixel adaptation
+- `useSimpleAdaptation()`: Apply heuristic adaptations
+- `usePixelML()`: Machine learning integration
+
+### Components
+- `AdaptivePixelsCanvas`: Main rendering canvas
+- `PixelLearningDashboard`: Analytics and controls
+- `HeatmapCanvas`: Interaction visualization
+
+### Utilities
+- `pixelStorage`: Local storage management
+- `pixelSupabase`: Cloud persistence
+- `utils`: Color, math, and helper functions
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Submit a pull request
 
 ### Development Guidelines
-
-- Follow TypeScript strict mode
-- Use ESLint and Prettier
-- Write comprehensive tests
-- Document your code
-- Follow the existing architecture patterns
-
----
+- Use TypeScript strict mode
+- Follow existing code patterns
+- Add tests for new features
+- Update documentation
+- Ensure performance targets
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
+MIT License - see LICENSE file for details.
 
 ## 🆘 Support
 
-- **Documentation**: [docs.super-son1k.com](https://docs.super-son1k.com)
-- **Issues**: [GitHub Issues](https://github.com/super-son1k/super-son1k-2.0/issues)
-- **Discord**: [Join our community](https://discord.gg/super-son1k)
-- **Email**: support@super-son1k.com
+- **Issues**: GitHub Issues
+- **Documentation**: This README
+- **Examples**: See `/examples` directory
+- **Community**: Discord server
 
 ---
 
-## 🎉 Acknowledgments
-
-- **Suno AI** for music generation capabilities
-- **Supabase** for backend infrastructure
-- **Vercel** for deployment platform
-- **Open source community** for amazing tools and libraries
-
----
-
-**Built with ❤️ by the Super-Son1k Team**
-
-*Making music creation accessible to everyone, everywhere.*
+**Built with ❤️ for the Son1kVers3 ecosystem**
