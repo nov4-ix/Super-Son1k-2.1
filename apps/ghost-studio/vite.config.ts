@@ -7,16 +7,27 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@super-son1k/shared-ui': path.resolve(__dirname, '../../packages/shared-ui/src'),
-      '@super-son1k/shared-utils': path.resolve(__dirname, '../../packages/shared-utils/src')
-    }
-  },
-  server: {
-    port: 3002,
-    host: true
+    },
   },
   build: {
     outDir: 'dist',
-    sourcemap: true
-  }
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          motion: ['framer-motion'],
+          store: ['zustand'],
+        },
+      },
+    },
+  },
+  server: {
+    port: 3001,
+    open: true,
+    host: true,
+  },
+  define: {
+    'process.env': process.env,
+  },
 })
