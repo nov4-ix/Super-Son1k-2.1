@@ -293,16 +293,26 @@
     </div>
 
     <!-- Actions -->
-    <div class="actions">
-      <button class="btn btn-primary" id="sync-btn">
-        🔄 Sync Tokens
+    <div class="actions" style="flex-direction: column; gap: 8px;">
+      <button class="btn btn-primary" id="extract-to-pool-btn" style="width: 100%;">
+        🔑 Extraer y Enviar al Pool
       </button>
-      <button class="btn btn-secondary" id="refresh-btn">
-        🔄 Refresh
-      </button>
-      <button class="btn btn-danger" id="clear-btn">
-        🗑️ Clear All
-      </button>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn btn-secondary" id="send-selected-btn" style="flex: 1;">
+          📤 Enviar al Pool
+        </button>
+        <button class="btn btn-secondary" id="refresh-btn" style="flex: 1;">
+          🔄 Refresh
+        </button>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn btn-primary" id="sync-btn" style="flex: 1;">
+          🔄 Sync
+        </button>
+        <button class="btn btn-danger" id="clear-btn" style="flex: 1;">
+          🗑️ Clear
+        </button>
+      </div>
     </div>
   </div>
 

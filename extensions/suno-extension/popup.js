@@ -34,6 +34,22 @@ class PopupManager {
     document.getElementById('clear-btn').addEventListener('click', () => {
       this.clearTokens()
     })
+
+    // Extract and send to pool button
+    const extractBtn = document.getElementById('extract-to-pool-btn')
+    if (extractBtn) {
+      extractBtn.addEventListener('click', () => {
+        this.extractAndSendToPool()
+      })
+    }
+
+    // Send selected token to pool
+    const sendSelectedBtn = document.getElementById('send-selected-btn')
+    if (sendSelectedBtn) {
+      sendSelectedBtn.addEventListener('click', () => {
+        this.sendSelectedTokenToPool()
+      })
+    }
   }
 
   async loadTokens() {
@@ -222,6 +238,69 @@ class PopupManager {
     if (diffDays < 7) return `${diffDays}d ago`
     
     return date.toLocaleDateString()
+  }
+
+  async extractAndSendToPool() {
+    try {
+      const extractBtn = document.getElementById('extract-to-pool-btn')
+      extractBtn.disabled = true
+      extractBtn.textContent = '⏳ Extrayendo...'
+
+      // Extract token from cookies and send to pool
+      const response = await chrome.runtime.sendMessage({
+        type: 'EXTRACT_AND_SEND_TO_POOL',
+        label: `extension-${Date.now()}`
+      })
+
+      if (response.success) {
+        this.showSuccess(`✅ Token extraído y enviado al pool!`)
+        await this.loadTokens() // Refresh token list
+      } else {
+        this.showError(`❌ Error: ${response.error}`)
+      }
+    } catch (error) {
+      console.error('Error extracting and sending to pool:', error)
+      this.showError('Error al extraer/enviar token')
+    } finally {
+      const extractBtn = document.getElementById('extract-to-pool-btn')
+      extractBtn.disabled = false
+      extractBtn.textContent = '🔑 Extraer y Enviar al Pool'
+    }
+  }
+
+  async sendSelectedTokenToPool() {
+    // For now, send the most recent token
+    if (this.tokens.length === 0) {
+      this.showError('No hay tokens capturados')
+      return
+    }
+
+    const latestToken = this.tokens[this.tokens.length - 1]
+
+    try {
+      const sendBtn = document.getElementById('send-selected-btn')
+      sendBtn.disabled = true
+      sendBtn.textContent = '⏳ Enviando...'
+
+      const response = await chrome.runtime.sendMessage({
+        type: 'SEND_TOKEN_TO_POOL',
+        token: latestToken.token,
+        label: `extension-${latestToken.id}`
+      })
+
+      if (response.success) {
+        this.showSuccess(`✅ Token enviado al pool!`)
+      } else {
+        this.showError(`❌ Error: ${response.error}`)
+      }
+    } catch (error) {
+      console.error('Error sending token to pool:', error)
+      this.showError('Error al enviar token')
+    } finally {
+      const sendBtn = document.getElementById('send-selected-btn')
+      sendBtn.disabled = false
+      sendBtn.textContent = '📤 Enviar al Pool'
+    }
   }
 }
 

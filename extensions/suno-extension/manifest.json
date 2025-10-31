@@ -15,7 +15,8 @@
     "https://suno.com/*",
     "https://*.suno.com/*",
     "https://api.suno.ai/*",
-    "https://*.super-son1k.com/*"
+    "https://*.super-son1k.com/*",
+    "https://the-generator.son1kvers3.com/*"
   ],
   "background": {
     "service_worker": "background.js"
