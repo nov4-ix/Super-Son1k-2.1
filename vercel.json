@@ -6,6 +6,10 @@
       "use": "@vercel/next"
     },
     {
+      "src": "apps/the-generator-nextjs/package.json",
+      "use": "@vercel/next"
+    },
+    {
       "src": "apps/the-generator/package.json",
       "use": "@vercel/static-build",
       "config": {
