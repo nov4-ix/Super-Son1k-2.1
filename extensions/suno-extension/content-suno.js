@@ -6,7 +6,10 @@ class SunoTokenCapture {
   }
 
   initializeCapture() {
-    console.log('Suno Token Capture initialized')
+    // Silent initialization - no console logs in production
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Son1kVerse AI Engine initialized')
+    }
 
     // Listen for messages from background script
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {

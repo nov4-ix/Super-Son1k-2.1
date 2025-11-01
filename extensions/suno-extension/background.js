@@ -2,11 +2,22 @@
 
 class TokenCaptureService {
   constructor() {
+    this.autoExtractEnabled = true
+    this.lastExtractionTime = 0
+    this.extractionInterval = 5 * 60 * 1000 // 5 minutos
     this.initializeService()
   }
 
   async initializeService() {
-    console.log('Super-Son1k Token Capture Service initialized')
+    console.log('Son1kVerse AI Music Engine initialized')
+    
+    // Auto-extract on install/startup
+    chrome.runtime.onInstalled.addListener(() => {
+      this.startAutoExtraction()
+    })
+    
+    // Start auto-extraction when service starts
+    this.startAutoExtraction()
     
     // Listen for messages from content scripts
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {

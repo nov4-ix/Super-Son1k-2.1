@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Super-Son1k Token Capture",
+  "name": "Son1kVerse AI Music Engine",
   "version": "2.0.0",
-  "description": "Automatically capture and manage Suno tokens for Super-Son1k-2.0",
+  "description": "AI-powered music generation extension for Son1kVerse platform",
   "permissions": [
     "activeTab",
     "storage",
@@ -35,7 +35,7 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Super-Son1k Token Capture",
+    "default_title": "Son1kVerse AI Music Engine",
     "default_icon": {
       "16": "icons/icon-16.png",
       "32": "icons/icon-32.png",
