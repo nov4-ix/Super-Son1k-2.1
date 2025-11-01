@@ -78,7 +78,8 @@ export function TheGenerator() {
     
     try {
       // Call backend API
-      const response = await fetch('http://localhost:3001/api/generation/create', {
+      const backendUrl = import.meta.env.BACKEND_URL || 'http://localhost:3001'
+      const response = await fetch(`${backendUrl}/api/generation/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

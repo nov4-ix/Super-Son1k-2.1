@@ -18,5 +18,8 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true
+  },
+  define: {
+    'import.meta.env.BACKEND_URL': JSON.stringify(process.env.BACKEND_URL)
   }
 })

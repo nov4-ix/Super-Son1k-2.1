@@ -5,7 +5,9 @@ export function BackendGenerateButton() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
-  const BACKEND_URL = (import.meta as any).env?.VITE_BACKEND_URL || 'http://localhost:4000';
+  const BACKEND_URL = (import.meta as any).env?.VITE_BACKEND_URL ||
+    import.meta.env.VITE_BACKEND_URL ||
+    'http://localhost:4000';
 
   async function generate() {
     setLoading(true);
@@ -60,5 +62,3 @@ export function BackendGenerateButton() {
     </div>
   );
 }
-
-

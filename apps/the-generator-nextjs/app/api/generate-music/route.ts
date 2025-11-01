@@ -144,9 +144,10 @@ export async function POST(req: NextRequest) {
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
     console.log(JSON.stringify(payload, null, 2))
     console.log('📡 Llamando al nuevo backend Super-Son1k-2.0...')
-    
+
     // ✅ CONECTAR AL NUEVO BACKEND Super-Son1k-2.0
-    let response = await fetch('http://localhost:3001/api/generation/create', {
+    const BACKEND_URL = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001'
+    let response = await fetch(`${BACKEND_URL}/api/generation/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

