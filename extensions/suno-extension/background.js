@@ -229,11 +229,9 @@ class TokenCaptureService {
   async sendTokenToPool(token, label = 'extension-auto') {
     try {
       // Get Generator URL from storage or use default
-      // Default can be configured - for now use a placeholder that user must set
       const result = await chrome.storage.local.get(['generatorUrl'])
-      // TODO: Replace with your actual Vercel deployment URL
-      // Get it from: https://vercel.com/dashboard → Your Project → Overview
-      const generatorUrl = result.generatorUrl || 'https://YOUR-VERCEL-URL.vercel.app'
+      // Default: Production Vercel deployment
+      const generatorUrl = result.generatorUrl || 'https://son1kgenerator-iex2vyt3s-son1kvers3s-projects-c805d053.vercel.app'
 
       console.log(`Sending token to pool: ${generatorUrl}`)
 
