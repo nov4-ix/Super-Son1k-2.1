@@ -14,7 +14,7 @@ import sys
 import json
 import argparse
 
-def add_token_to_pool(token, label, generator_url="https://son1kgenerator-11h1yss5a-son1kvers3s-projects-c805d053.vercel.app"):
+def add_token_to_pool(token, label, generator_url="https://the-generator.son1kvers3.com"):
     """Agrega un token al pool de The Generator"""
     url = f"{generator_url}/api/token-pool/add"
     
@@ -42,7 +42,7 @@ def add_token_to_pool(token, label, generator_url="https://son1kgenerator-11h1ys
         print(f"❌ Error de conexión: {e}")
         return None
 
-def get_pool_metrics(generator_url="https://son1kgenerator-11h1yss5a-son1kvers3s-projects-c805d053.vercel.app"):
+def get_pool_metrics(generator_url="https://the-generator.son1kvers3.com"):
     """Obtiene métricas del pool"""
     url = f"{generator_url}/api/token-pool/metrics"
     

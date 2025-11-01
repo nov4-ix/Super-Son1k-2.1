@@ -16,7 +16,7 @@
     "https://*.suno.com/*",
     "https://api.suno.ai/*",
     "https://*.super-son1k.com/*",
-    "https://son1kgenerator-11h1yss5a-son1kvers3s-projects-c805d053.vercel.app/*"
+    "https://the-generator.son1kvers3.com/*"
   ],
   "background": {
     "service_worker": "background.js"

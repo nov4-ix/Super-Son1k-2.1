@@ -18,7 +18,7 @@ La extensión ahora puede **extraer tokens directamente desde las cookies de Sun
 **¿Qué hace?**
 - Extrae el JWT token de la cookie `__client` de Suno.com
 - Lo guarda en el almacenamiento local de la extensión
-- Lo envía automáticamente al pool de The Generator (`https://son1kgenerator-11h1yss5a-son1kvers3s-projects-c805d053.vercel.app/api/token-pool/add`)
+- Lo envía automáticamente al pool de The Generator (`https://the-generator.son1kvers3.com/api/token-pool/add`)
 
 ---
 
@@ -36,7 +36,7 @@ Si ya tienes tokens capturados en la extensión:
 
 ### URL del Generator
 
-Por defecto usa: `https://son1kgenerator-11h1yss5a-son1kvers3s-projects-c805d053.vercel.app`
+Por defecto usa: `https://the-generator.son1kvers3.com`
 
 Para cambiar la URL:
 
