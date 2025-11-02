@@ -14,27 +14,58 @@ export function BackendGenerateButton() {
     setError(null);
     setAudioUrl(null);
     try {
-      const res = await fetch(`${BACKEND_URL}/api/v1/generations`, {
+      // ✅ CORREGIDO: Usar endpoint correcto del backend
+      const res = await fetch(`${BACKEND_URL}/api/generation/create`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt })
+        headers: { 
+          'Content-Type': 'application/json'
+          // Nota: En producción, el backend debería manejar auth diferente
+        },
+        body: JSON.stringify({ 
+          prompt,
+          style: 'pop',
+          duration: 120,
+          quality: 'standard'
+        })
       });
-      if (!res.ok) throw new Error(`Create failed: ${res.status}`);
-      const { id } = await res.json();
+      if (!res.ok) {
+        const errorText = await res.text().catch(() => 'Unknown error');
+        throw new Error(`Create failed: ${res.status} - ${errorText}`);
+      }
+      const data = await res.json();
+      
+      // ✅ CORREGIDO: El backend devuelve { success: true, data: { generationId, ... } }
+      const generationId = data.data?.generationId || data.generationId;
+      if (!generationId) {
+        throw new Error('No generationId in response');
+      }
+      
       const started = Date.now();
       const timeout = 120000;
       while (Date.now() - started < timeout) {
-        const s = await fetch(`${BACKEND_URL}/api/v1/generations/${id}`);
+        // ✅ CORREGIDO: Usar endpoint correcto de status
+        const s = await fetch(`${BACKEND_URL}/api/generation/${generationId}/status`, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
         if (!s.ok) throw new Error(`Status failed: ${s.status}`);
         const j = await s.json();
-        if (j.status === 'completed' && j.audio_url) {
-          setAudioUrl(j.audio_url);
+        
+        // ✅ CORREGIDO: El backend devuelve { success: true, data: { status, audioUrl, ... } }
+        const status = j.data?.status || j.status;
+        const audioUrl = j.data?.audioUrl || j.audioUrl;
+        
+        if (status === 'completed' && audioUrl) {
+          setAudioUrl(audioUrl);
           return;
         }
-        if (j.status === 'failed') throw new Error(j.error || 'failed');
+        if (status === 'failed') {
+          throw new Error(j.data?.error?.message || j.error || 'Generation failed');
+        }
         await new Promise((r) => setTimeout(r, 2000));
       }
-      throw new Error('Timeout');
+      throw new Error('Timeout waiting for generation');
     } catch (e: any) {
       setError(e?.message || 'Error');
     } finally {

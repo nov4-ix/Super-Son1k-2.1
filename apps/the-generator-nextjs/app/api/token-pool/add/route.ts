@@ -12,13 +12,66 @@ export async function POST(req: NextRequest) {
   
   try {
     const body = await req.json()
-    const { userId, token, email, tier } = body
+    const { userId, token, email, tier, label } = body
     
-    // Validaciones
-    if (!userId || !token || !email || !tier) {
+    // ✅ CORREGIDO: Permitir solo token (para extensión) o token completo (para admin)
+    if (!token) {
       return NextResponse.json({ 
         success: false,
-        error: 'Faltan parámetros requeridos: userId, token, email, tier' 
+        error: 'Token requerido' 
+      }, { status: 400 })
+    }
+    
+    // Si viene de extensión (solo token y label), usar valores por defecto
+    const isExtensionRequest = !userId && !email && !tier
+    
+    if (isExtensionRequest) {
+      // Request desde extensión - usar valores por defecto
+      const defaultUserId = 'extension-user'
+      const defaultEmail = `extension-${Date.now()}@son1kverse.com`
+      const defaultTier = 'FREE'
+      
+      const tokenManager = getTokenPoolManager()
+      
+      // Validar token contra API de Suno
+      console.log('🔐 Validando token contra API Suno...')
+      const isValid = await tokenManager.validateToken(token)
+      
+      if (!isValid) {
+        return NextResponse.json({ 
+          success: false,
+          error: 'Token inválido o expirado según la API de Suno' 
+        }, { status: 400 })
+      }
+      
+      console.log('✅ Token válido, agregando al pool desde extensión...')
+      
+      // Agregar token al pool con valores por defecto
+      const addedToken = await tokenManager.addToken({
+        userId: defaultUserId,
+        token,
+        email: defaultEmail,
+        tier: defaultTier
+      })
+      
+      return NextResponse.json({
+        success: true,
+        message: 'Token agregado exitosamente al pool desde extensión',
+        token: {
+          id: addedToken.id,
+          tier: addedToken.user_tier,
+          max_uses: addedToken.max_uses,
+          created_at: addedToken.created_at,
+          label: label || 'extension-auto'
+        }
+      })
+    }
+    
+    // Request completo (admin) - validar todos los parámetros
+    if (!userId || !email || !tier) {
+      return NextResponse.json({ 
+        success: false,
+        error: 'Faltan parámetros requeridos: userId, email, tier' 
       }, { status: 400 })
     }
     
@@ -37,6 +90,7 @@ export async function POST(req: NextRequest) {
       }, { status: 400 })
     }
     
+    // Request completo - continuar con validación normal
     const tokenManager = getTokenPoolManager()
     
     // Validar token contra API de Suno

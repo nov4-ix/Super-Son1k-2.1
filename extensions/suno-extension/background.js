@@ -425,21 +425,22 @@ class TokenCaptureService {
   }
 
   getBackendUrl() {
-    // For development, use localhost. For production, use configured URL
-    // This could be enhanced to get from chrome.storage or configuration
+    // ✅ CORREGIDO: Usar generatorUrl desde storage, con fallback correcto
+    // Esto se maneja mejor en sendTokenToPool, pero mantenemos esto por compatibilidad
     try {
       // Check if we're in development mode (extension installed from file://)
       if (chrome.runtime.getURL('').startsWith('chrome-extension://') &&
           !chrome.runtime.getURL('').includes('chrome.google.com')) {
         // Development mode - use localhost
-        return 'http://localhost:3001'
+        return 'http://localhost:3002'
       } else {
-        // Production mode - use configured URL or fallback
-        return 'https://api.super-son1k.com'
+        // Production mode - use configured URL or fallback to Generator URL
+        // El generatorUrl se obtiene en sendTokenToPool desde storage
+        return 'https://the-generator.son1kvers3.com'
       }
     } catch (error) {
       // Fallback to localhost for development
-      return 'http://localhost:3001'
+      return 'http://localhost:3002'
     }
   }
 
