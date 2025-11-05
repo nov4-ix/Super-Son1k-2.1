@@ -5,8 +5,9 @@ export function BackendGenerateButton() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
-  const BACKEND_URL = (import.meta as any).env?.VITE_BACKEND_URL ||
-    import.meta.env.VITE_BACKEND_URL ||
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 
+    (import.meta as any).env?.VITE_BACKEND_URL ||
+    process.env.VITE_BACKEND_URL ||
     'http://localhost:4000';
 
   async function generate() {
@@ -14,8 +15,8 @@ export function BackendGenerateButton() {
     setError(null);
     setAudioUrl(null);
     try {
-      // ✅ CORREGIDO: Usar endpoint correcto del backend
-      const res = await fetch(`${BACKEND_URL}/api/generation/create`, {
+      // ✅ CORREGIDO: Usar endpoint público (sin auth requerido)
+      const res = await fetch(`${BACKEND_URL}/api/generation-public/create`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json'
@@ -43,8 +44,8 @@ export function BackendGenerateButton() {
       const started = Date.now();
       const timeout = 120000;
       while (Date.now() - started < timeout) {
-        // ✅ CORREGIDO: Usar endpoint correcto de status
-        const s = await fetch(`${BACKEND_URL}/api/generation/${generationId}/status`, {
+        // ✅ CORREGIDO: Usar endpoint público de status
+        const s = await fetch(`${BACKEND_URL}/api/generation-public/${generationId}/status`, {
           headers: {
             'Content-Type': 'application/json'
           }

@@ -1,6 +1,6 @@
 # 🎯 ESTADO COMPLETO BETA - QUÉ TENEMOS Y QUÉ FALTA
 
-**Fecha:** ${new Date().toISOString()}
+**Fecha:** 2025-11-01T18:42:00Z
 **Versión:** Beta Pública
 **Commit Actual:** `a41aa9a` - fix: repair critical endpoints and token pool
 
@@ -413,6 +413,6 @@ Luego continuar con el resto del checklist.
 
 ---
 
-**Última actualización:** ${new Date().toISOString()}
+**Última actualización:** 2025-11-01T18:42:00Z
 **Estado general:** ⚠️ 70% Listo - 30% Pendiente (Crítico)
 

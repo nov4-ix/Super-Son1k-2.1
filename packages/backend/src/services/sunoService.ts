@@ -11,7 +11,7 @@ export interface GenerationRequest {
   style: string;
   duration: number;
   quality: string;
-  userId: string;
+  userId: string | null; // ✅ Allow null for public generations
   generationId: string;
 }
 
@@ -34,8 +34,8 @@ export class SunoService {
    */
   async generateMusic(request: GenerationRequest): Promise<GenerationResult> {
     try {
-      // Get a healthy token
-      const tokenData = await this.tokenManager.getHealthyToken(request.userId);
+      // Get a healthy token (userId can be null for public generations)
+      const tokenData = await this.tokenManager.getHealthyToken(request.userId || undefined);
       
       if (!tokenData) {
         return {

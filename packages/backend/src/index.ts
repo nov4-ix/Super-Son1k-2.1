@@ -17,6 +17,7 @@ import { IncomingMessage, Server, ServerResponse } from 'http';
 import { authRoutes } from './routes/auth';
 import { stripeRoutes } from './routes/stripe';
 import { generationRoutes } from './routes/generation';
+import { publicGenerationRoutes } from './routes/generation-public';
 import { collaborationRoutes } from './routes/collaboration';
 import { userRoutes } from './routes/user';
 import { nftRoutes } from './routes/nft';
@@ -251,6 +252,11 @@ async function registerRoutes() {
   await fastify.register(authRoutes, { prefix: '/api/auth' });
   await fastify.register(stripeRoutes, { prefix: '/api/stripe' });
   await fastify.register(extensionRoutes(userExtensionService), { prefix: '/api/extension' });
+  
+  // ✅ PUBLIC: Generation routes without auth (for Ghost Studio, etc.)
+  await fastify.register(publicGenerationRoutes(sunoService, analyticsService), {
+    prefix: '/api/generation-public'
+  });
 
   // Protected routes (auth required)
   fastify.addHook('onRequest', authMiddleware);

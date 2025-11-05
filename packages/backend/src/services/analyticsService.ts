@@ -13,7 +13,7 @@ export interface AnalyticsEvent {
 }
 
 export interface GenerationAnalytics {
-  userId: string;
+  userId?: string; // ✅ Optional for public generations
   generationId: string;
   prompt: string;
   style: string;
@@ -57,6 +57,11 @@ export class AnalyticsService {
    */
   async trackGeneration(generation: GenerationAnalytics): Promise<void> {
     try {
+      // ✅ Skip analytics for public generations (no userId)
+      if (!generation.userId) {
+        return; // Public generations don't need analytics tracking
+      }
+      
       await this.prisma.generationAnalytics.create({
         data: {
           userId: generation.userId,
