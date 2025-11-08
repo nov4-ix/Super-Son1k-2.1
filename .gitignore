@@ -39,3 +39,7 @@ Thumbs.db
 
 # Secure credentials
 SUPABASE_AUTH_CONFIGURED.md
+
+# Environment files with real secrets
+*.REAL
+env.*.REAL
