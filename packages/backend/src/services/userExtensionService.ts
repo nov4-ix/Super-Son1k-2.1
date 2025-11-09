@@ -28,7 +28,7 @@ export class UserExtensionService {
         data: {
           userId: usage.userId,
           action: usage.action,
-          metadata: usage.metadata,
+          metadata: JSON.stringify(usage.metadata),
           timestamp: usage.timestamp
         }
       });

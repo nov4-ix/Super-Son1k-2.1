@@ -280,7 +280,7 @@ export async function stripeRoutes(fastify: FastifyInstance) {
   async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
     const customerId = subscription.customer as string
     
-    const userTier = await fastify.prisma.userTier.findUnique({
+    const userTier = await fastify.prisma.userTier.findFirst({
       where: { stripeCustomerId: customerId }
     })
 
@@ -304,7 +304,7 @@ export async function stripeRoutes(fastify: FastifyInstance) {
   async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
     const customerId = subscription.customer as string
     
-    const userTier = await fastify.prisma.userTier.findUnique({
+    const userTier = await fastify.prisma.userTier.findFirst({
       where: { stripeCustomerId: customerId }
     })
 
@@ -322,7 +322,7 @@ export async function stripeRoutes(fastify: FastifyInstance) {
   async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
     const customerId = invoice.customer as string
     
-    const userTier = await fastify.prisma.userTier.findUnique({
+    const userTier = await fastify.prisma.userTier.findFirst({
       where: { stripeCustomerId: customerId }
     })
 
@@ -346,7 +346,7 @@ export async function stripeRoutes(fastify: FastifyInstance) {
   async function handlePaymentFailed(invoice: Stripe.Invoice) {
     const customerId = invoice.customer as string
     
-    const userTier = await fastify.prisma.userTier.findUnique({
+    const userTier = await fastify.prisma.userTier.findFirst({
       where: { stripeCustomerId: customerId }
     })
 

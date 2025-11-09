@@ -50,7 +50,7 @@ model UserTier {
   features             String   @default("basic_generation,community_access")
   subscriptionStatus   String?
   subscriptionEndDate  DateTime?
-  stripeCustomerId     String?
+  stripeCustomerId     String?  @unique
   stripeSubscriptionId String?
   monthResetAt         DateTime @default(now())
   dayResetAt           DateTime @default(now())

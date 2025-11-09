@@ -23,21 +23,40 @@ export class SupabaseAuthService {
   async createUserFromSupabase(supabaseUser: any) {
     if (!supabase) {
       console.warn('Supabase not configured, creating mock user for development')
-      return {
-        id: supabaseUser.id || 'dev-user-1',
-        email: supabaseUser.email || 'dev@example.com',
-        username: supabaseUser.user_metadata?.username || 'devuser',
-        tier: 'FREE',
-        isAdmin: false,
-        alvaeEnabled: false
-      }
+      const mockUserId = supabaseUser.id || 'dev-user-1'
+      // Create mock user in database
+      const user = await this.prisma.user.upsert({
+        where: { id: mockUserId },
+        update: {},
+        create: {
+          id: mockUserId,
+          email: supabaseUser.email || 'dev@example.com',
+          username: supabaseUser.user_metadata?.username || 'devuser',
+          tier: 'FREE',
+          isAdmin: false,
+          alvaeEnabled: false
+        }
+      })
+      // Ensure user tier exists
+      await this.prisma.userTier.upsert({
+        where: { userId: mockUserId },
+        update: {},
+        create: {
+          userId: mockUserId,
+          tier: 'FREE',
+          monthlyGenerations: 5,
+          dailyGenerations: 2,
+          maxDuration: 60,
+          quality: 'standard',
+          features: JSON.stringify(['basic_generation', 'community_access'])
+        }
+      })
+      return await this.getUserWithTier(mockUserId)
     }
 
     try {
       // Check if user already exists
-      const existingUser = await this.prisma.user.findUnique({
-        where: { email: supabaseUser.email }
-      })
+      const existingUser = await this.getUserWithTier(supabaseUser.id)
 
       if (existingUser) {
         return existingUser
@@ -49,7 +68,6 @@ export class SupabaseAuthService {
           id: supabaseUser.id,
           email: supabaseUser.email,
           username: supabaseUser.user_metadata?.username || supabaseUser.email.split('@')[0],
-          password: '', // Supabase handles password
           tier: 'FREE',
           isAdmin: false,
           alvaeEnabled: false
@@ -59,7 +77,8 @@ export class SupabaseAuthService {
       // Create user tier record
       await this.createUserTier(user.id, 'FREE')
 
-      return user
+      // Return user with tier included
+      return await this.getUserWithTier(user.id)
     } catch (error) {
       console.error('Error creating user from Supabase:', error)
       throw error
@@ -108,7 +127,7 @@ export class SupabaseAuthService {
         dailyGenerations: config.dailyGenerations,
         maxDuration: config.maxDuration,
         quality: config.quality,
-        features: config.features,
+        features: JSON.stringify(config.features),
         usedThisMonth: 0,
         usedToday: 0,
         monthResetAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
@@ -137,7 +156,6 @@ export class SupabaseAuthService {
           stripeCustomerId,
           stripeSubscriptionId,
           subscriptionStatus: 'active',
-          subscriptionStartDate: new Date(),
           subscriptionEndDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days from now
         }
       })
@@ -211,8 +229,7 @@ export class SupabaseAuthService {
       where: { userId },
       data: {
         usedThisMonth: userTier.usedThisMonth + 1,
-        usedToday: userTier.usedToday + 1,
-        lastGenerationAt: new Date()
+        usedToday: userTier.usedToday + 1
       }
     })
   }
